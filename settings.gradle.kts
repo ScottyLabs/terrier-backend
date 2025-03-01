@@ -1,3 +1,3 @@
-rootProject.name = "terrier"
+rootProject.name = "terrier-backend"
 
-include(":api")
+include("api", "service", "gateway")

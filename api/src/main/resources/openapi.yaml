@@ -1,0 +1,1631 @@
+openapi: 3.0.3
+info:
+  title: Hackathon Management System API
+  description: API for managing hackathon events, teams, projects, judging, and sponsorships
+  version: 1.0.0
+
+servers:
+  - url: https://api.hackathon-system.com/v1
+    description: Production server
+  - url: https://staging-api.hackathon-system.com/v1
+    description: Staging server
+
+tags:
+  - name: Users
+    description: User management operations
+  - name: Projects
+    description: Project management operations
+  - name: Teams
+    description: Team management operations
+  - name: Hackers
+    description: Hacker management operations
+  - name: Judges
+    description: Judge management operations
+  - name: Submissions
+    description: Submission management operations
+  - name: Evaluations
+    description: Evaluation management operations
+  - name: Tracks
+    description: Track management operations
+  - name: Sponsors
+    description: Sponsor management operations
+  - name: SponsorOrgs
+    description: Sponsoring organization management operations
+  - name: Events
+    description: Event management operations
+  - name: CheckIns
+    description: Check-in management operations
+  - name: JudgeAssignments
+    description: Judge assignment management operations
+
+paths:
+  /users:
+    get:
+      summary: Get all users
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Create a new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}:
+    get:
+      summary: Get a user by ID
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Update a user
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      summary: Delete a user
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User deleted successfully
+
+  /projects:
+    get:
+      summary: Get all projects
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+    post:
+      summary: Create a new project
+      tags:
+        - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '201':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+
+  /projects/{projectId}:
+    get:
+      summary: Get a project by ID
+      tags:
+        - Projects
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+    put:
+      summary: Update a project
+      tags:
+        - Projects
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: Project updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+    delete:
+      summary: Delete a project
+      tags:
+        - Projects
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Project deleted successfully
+
+  /teams:
+    get:
+      summary: Get all teams
+      tags:
+        - Teams
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+    post:
+      summary: Create a new team
+      tags:
+        - Teams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+      responses:
+        '201':
+          description: Team created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+
+  /teams/{teamId}:
+    get:
+      summary: Get a team by ID
+      tags:
+        - Teams
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+    put:
+      summary: Update a team
+      tags:
+        - Teams
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+      responses:
+        '200':
+          description: Team updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+    delete:
+      summary: Delete a team
+      tags:
+        - Teams
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Team deleted successfully
+
+  /hackers:
+    get:
+      summary: Get all hackers
+      tags:
+        - Hackers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hacker'
+    post:
+      summary: Create a new hacker
+      tags:
+        - Hackers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hacker'
+      responses:
+        '201':
+          description: Hacker created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hacker'
+
+  /hackers/{hackerId}:
+    get:
+      summary: Get a hacker by ID
+      tags:
+        - Hackers
+      parameters:
+        - name: hackerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hacker'
+    put:
+      summary: Update a hacker
+      tags:
+        - Hackers
+      parameters:
+        - name: hackerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hacker'
+      responses:
+        '200':
+          description: Hacker updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hacker'
+    delete:
+      summary: Delete a hacker
+      tags:
+        - Hackers
+      parameters:
+        - name: hackerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Hacker deleted successfully
+
+  /judges:
+    get:
+      summary: Get all judges
+      tags:
+        - Judges
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Judge'
+    post:
+      summary: Create a new judge
+      tags:
+        - Judges
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Judge'
+      responses:
+        '201':
+          description: Judge created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Judge'
+
+  /judges/{judgeId}:
+    get:
+      summary: Get a judge by ID
+      tags:
+        - Judges
+      parameters:
+        - name: judgeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Judge'
+    put:
+      summary: Update a judge
+      tags:
+        - Judges
+      parameters:
+        - name: judgeId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Judge'
+      responses:
+        '200':
+          description: Judge updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Judge'
+    delete:
+      summary: Delete a judge
+      tags:
+        - Judges
+      parameters:
+        - name: judgeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Judge deleted successfully
+
+  /submissions:
+    get:
+      summary: Get all submissions
+      tags:
+        - Submissions
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Submission'
+    post:
+      summary: Create a new submission
+      tags:
+        - Submissions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Submission'
+      responses:
+        '201':
+          description: Submission created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+
+  /submissions/{submissionId}:
+    get:
+      summary: Get a submission by ID
+      tags:
+        - Submissions
+      parameters:
+        - name: submissionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+    put:
+      summary: Update a submission
+      tags:
+        - Submissions
+      parameters:
+        - name: submissionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Submission'
+      responses:
+        '200':
+          description: Submission updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+    delete:
+      summary: Delete a submission
+      tags:
+        - Submissions
+      parameters:
+        - name: submissionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Submission deleted successfully
+
+  /evaluations:
+    get:
+      summary: Get all evaluations
+      tags:
+        - Evaluations
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Evaluation'
+    post:
+      summary: Create a new evaluation
+      tags:
+        - Evaluations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Evaluation'
+      responses:
+        '201':
+          description: Evaluation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+
+  /evaluations/{evaluationId}:
+    get:
+      summary: Get an evaluation by ID
+      tags:
+        - Evaluations
+      parameters:
+        - name: evaluationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+    put:
+      summary: Update an evaluation
+      tags:
+        - Evaluations
+      parameters:
+        - name: evaluationId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Evaluation'
+      responses:
+        '200':
+          description: Evaluation updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+    delete:
+      summary: Delete an evaluation
+      tags:
+        - Evaluations
+      parameters:
+        - name: evaluationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Evaluation deleted successfully
+
+  /tracks:
+    get:
+      summary: Get all tracks
+      tags:
+        - Tracks
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Track'
+    post:
+      summary: Create a new track
+      tags:
+        - Tracks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Track'
+      responses:
+        '201':
+          description: Track created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+
+  /tracks/{trackId}:
+    get:
+      summary: Get a track by ID
+      tags:
+        - Tracks
+      parameters:
+        - name: trackId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+    put:
+      summary: Update a track
+      tags:
+        - Tracks
+      parameters:
+        - name: trackId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Track'
+      responses:
+        '200':
+          description: Track updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+    delete:
+      summary: Delete a track
+      tags:
+        - Tracks
+      parameters:
+        - name: trackId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Track deleted successfully
+
+  /sponsors:
+    get:
+      summary: Get all sponsors
+      tags:
+        - Sponsors
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sponsor'
+    post:
+      summary: Create a new sponsor
+      tags:
+        - Sponsors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sponsor'
+      responses:
+        '201':
+          description: Sponsor created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sponsor'
+
+  /sponsors/{sponsorId}:
+    get:
+      summary: Get a sponsor by ID
+      tags:
+        - Sponsors
+      parameters:
+        - name: sponsorId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sponsor'
+    put:
+      summary: Update a sponsor
+      tags:
+        - Sponsors
+      parameters:
+        - name: sponsorId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sponsor'
+      responses:
+        '200':
+          description: Sponsor updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sponsor'
+    delete:
+      summary: Delete a sponsor
+      tags:
+        - Sponsors
+      parameters:
+        - name: sponsorId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Sponsor deleted successfully
+
+  /sponsororgs:
+    get:
+      summary: Get all sponsor organizations
+      tags:
+        - SponsorOrgs
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SponsorOrg'
+    post:
+      summary: Create a new sponsor organization
+      tags:
+        - SponsorOrgs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SponsorOrg'
+      responses:
+        '201':
+          description: Sponsor organization created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SponsorOrg'
+
+  /sponsororgs/{sponsorOrgId}:
+    get:
+      summary: Get a sponsor organization by ID
+      tags:
+        - SponsorOrgs
+      parameters:
+        - name: sponsorOrgId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SponsorOrg'
+    put:
+      summary: Update a sponsor organization
+      tags:
+        - SponsorOrgs
+      parameters:
+        - name: sponsorOrgId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SponsorOrg'
+      responses:
+        '200':
+          description: Sponsor organization updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SponsorOrg'
+    delete:
+      summary: Delete a sponsor organization
+      tags:
+        - SponsorOrgs
+      parameters:
+        - name: sponsorOrgId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Sponsor organization deleted successfully
+
+  /events:
+    get:
+      summary: Get all events
+      tags:
+        - Events
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      summary: Create a new event
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '201':
+          description: Event created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+
+  /events/{eventId}:
+    get:
+      summary: Get an event by ID
+      tags:
+        - Events
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+    put:
+      summary: Update an event
+      tags:
+        - Events
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+    delete:
+      summary: Delete an event
+      tags:
+        - Events
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Event deleted successfully
+
+  /checkins:
+    get:
+      summary: Get all check-ins
+      tags:
+        - CheckIns
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckIn'
+    post:
+      summary: Create a new check-in
+      tags:
+        - CheckIns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckIn'
+      responses:
+        '201':
+          description: Check-in created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckIn'
+
+  /checkins/{checkInId}:
+    get:
+      summary: Get a check-in by ID
+      tags:
+        - CheckIns
+      parameters:
+        - name: checkInId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckIn'
+    put:
+      summary: Update a check-in
+      tags:
+        - CheckIns
+      parameters:
+        - name: checkInId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckIn'
+      responses:
+        '200':
+          description: Check-in updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckIn'
+    delete:
+      summary: Delete a check-in
+      tags:
+        - CheckIns
+      parameters:
+        - name: checkInId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Check-in deleted successfully
+
+  /judgeassignments:
+    get:
+      summary: Get all judge assignments
+      tags:
+        - JudgeAssignments
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JudgeAssignment'
+    post:
+      summary: Create a new judge assignment
+      tags:
+        - JudgeAssignments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JudgeAssignment'
+      responses:
+        '201':
+          description: Judge assignment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JudgeAssignment'
+
+  /judgeassignments/{judgeAssignmentId}:
+    get:
+      summary: Get a judge assignment by ID
+      tags:
+        - JudgeAssignments
+      parameters:
+        - name: judgeAssignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JudgeAssignment'
+    put:
+      summary: Update a judge assignment
+      tags:
+        - JudgeAssignments
+      parameters:
+        - name: judgeAssignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JudgeAssignment'
+      responses:
+        '200':
+          description: Judge assignment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JudgeAssignment'
+    delete:
+      summary: Delete a judge assignment
+      tags:
+        - JudgeAssignments
+      parameters:
+        - name: judgeAssignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Judge assignment deleted successfully
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the user
+        idp:
+          type: string
+          description: Identity provider identifier
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - idp
+        - email
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the project
+        name:
+          type: string
+        description:
+          type: string
+        teamId:
+          type: string
+          format: uuid
+          description: ID of the team this project belongs to
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - teamId
+
+    Team:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the team
+        name:
+          type: string
+        projectId:
+          type: string
+          format: uuid
+          description: ID of the team's project
+        hackerIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of hackers in this team
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+
+    Hacker:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the hacker
+        userId:
+          type: string
+          format: uuid
+          description: ID of the user associated with this hacker
+        teamId:
+          type: string
+          format: uuid
+          description: ID of the team this hacker belongs to
+        sponsorIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of sponsors associated with this hacker
+        eventIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of events this hacker attends
+        skills:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - teamId
+
+    Judge:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the judge
+        userId:
+          type: string
+          format: uuid
+          description: ID of the user associated with this judge
+        assignmentIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of judge assignments for this judge
+        submissionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of submissions judged by this judge
+        expertise:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+
+    Submission:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the submission
+        projectId:
+          type: string
+          format: uuid
+          description: ID of the project for this submission
+        evaluationId:
+          type: string
+          format: uuid
+          description: ID of the evaluation for this submission
+        url:
+          type: string
+          format: uri
+          description: URL to the project submission
+        submittedAt:
+          type: string
+          format: date-time
+        judgeIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of judges assigned to evaluate this submission
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - projectId
+        - submittedAt
+
+    Evaluation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the evaluation
+        submissionId:
+          type: string
+          format: uuid
+          description: ID of the submission being evaluated
+        score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+        feedback:
+          type: string
+        completedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - submissionId
+
+    Track:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the track
+        name:
+          type: string
+          description: Name of the track
+        result:
+          type: string
+          description: Result/outcome of the track
+        sponsorOrgIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of sponsor organizations for this track
+        assignmentIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of judge assignments for this track
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+
+    Sponsor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the sponsor
+        userId:
+          type: string
+          format: uuid
+          description: ID of the user associated with this sponsor
+        sponsorOrgId:
+          type: string
+          format: uuid
+          description: ID of the sponsor organization this sponsor belongs to
+        hackerIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of hackers sponsored by this sponsor
+        role:
+          type: string
+          description: Role of the sponsor
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - sponsorOrgId
+
+    SponsorOrg:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the sponsor organization
+        name:
+          type: string
+        sponsorIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of sponsors from this organization
+        trackIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of tracks sponsored by this organization
+        eventIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of events hosted by this organization
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the event
+        name:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        location:
+          type: string
+        sponsorOrgIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of sponsor organizations hosting this event
+        hackerIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of hackers attending this event
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - startDate
+        - endDate
+
+    CheckIn:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the check-in
+        hackerId:
+          type: string
+          format: uuid
+          description: ID of the hacker checking in
+        eventId:
+          type: string
+          format: uuid
+          description: ID of the event for the check-in
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - hackerId
+        - timestamp
+
+    JudgeAssignment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the judge assignment
+        judgeIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of judges assigned
+        trackId:
+          type: string
+          format: uuid
+          description: ID of the track for this assignment
+        assignedAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [pending, accepted, completed]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - judgeIds
+        - trackId
+        - assignedAt
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
