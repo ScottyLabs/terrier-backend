@@ -5,6 +5,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.20" apply false
     kotlin("plugin.jpa") version "1.9.20" apply false
     id("org.openapi.generator") version "7.0.1" apply false
+    id("it.nicolasfarabegoli.conventional-commits") version "3.1.3"
 }
 
 allprojects {
