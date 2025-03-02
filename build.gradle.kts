@@ -1,18 +1,21 @@
 plugins {
-    id("org.springframework.boot") version "3.2.0" apply false
-    id("io.spring.dependency-management") version "1.1.4" apply false
-    kotlin("jvm") version "1.9.20" apply false
-    kotlin("plugin.spring") version "1.9.20" apply false
-    kotlin("plugin.jpa") version "1.9.20" apply false
-    id("org.openapi.generator") version "7.0.1" apply false
-    id("it.nicolasfarabegoli.conventional-commits") version "3.1.3"
+    id("org.springframework.boot") version Versions.springBoot apply false
+    id("io.spring.dependency-management") version Versions.springDependencyManagement apply false
+    kotlin("jvm") version Versions.kotlin apply false
+    kotlin("plugin.spring") version Versions.kotlin apply false
+    kotlin("plugin.jpa") version Versions.kotlin apply false
+    id("org.openapi.generator") version Versions.openApiGenerator apply false
 }
 
 allprojects {
-    group = "com.hackathon"
+    group = "com.terrier"
     version = "1.0.0"
 
     repositories {
         mavenCentral()
     }
+}
+
+tasks.wrapper {
+    distributionType = Wrapper.DistributionType.ALL
 }

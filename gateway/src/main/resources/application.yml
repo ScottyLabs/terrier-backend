@@ -1,0 +1,35 @@
+app:
+  auth:
+    issuer-uri: ${AUTH_ISSUER_URI}
+    allowed-origins: ${ALLOWED_ORIGINS}
+
+spring:
+  application:
+    name: gateway
+  security:
+    oauth2:
+      client:
+        provider:
+          ory:
+            issuer-uri: ${app.auth.issuer-uri}
+        registration:
+          account:
+            provider: ory
+            client-id: ${OAUTH_CLIENT_ID}
+            client-secret: ${OAUTH_CLIENT_SECRET}
+            scope: openid,profile,email,offline_access
+            client-name: account
+  cloud:
+    gateway:
+      routes:
+        - id: core
+          uri: ${SERVICE_URL}
+          predicates:
+            - Path=/api/**
+          filters:
+            - SaveSession
+            - TokenRelay=
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+  data:
+    redis:
+      url: ${REDIS_URL}

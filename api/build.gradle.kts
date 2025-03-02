@@ -1,16 +1,30 @@
 plugins {
     kotlin("jvm")
     id("org.openapi.generator")
+    id("io.spring.dependency-management")
     `java-library`
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${Versions.springBoot}")
+    }
+}
+
+// Configure Java toolchain
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(Versions.javaVersion))
+    }
+}
+
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("io.swagger.core.v3:swagger-annotations:2.2.15")
-    implementation("org.openapitools:jackson-databind-nullable:0.2.6")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
+    implementation(Deps.springBootWeb)
+    implementation(Deps.springBootValidation)
+    implementation(Deps.swaggerAnnotations)
+    implementation(Deps.jacksonDatabindNullable)
+    implementation(Deps.jacksonKotlin)
+    implementation(Deps.springdocOpenApiWebMvc)
 }
 
 // OpenAPI Generator configuration
@@ -18,8 +32,8 @@ openApiGenerate {
     generatorName.set("spring")
     inputSpec.set("$projectDir/src/main/resources/openapi.yaml")
     outputDir.set("$buildDir/generated")
-    apiPackage.set("com.hackathon.api")
-    modelPackage.set("com.hackathon.model")
+    apiPackage.set("com.terrier.api")
+    modelPackage.set("com.terrier.model")
     configOptions.set(mapOf(
         "dateLibrary" to "java8",
         "interfaceOnly" to "true",

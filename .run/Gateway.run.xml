@@ -1,0 +1,21 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Gateway" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="dev" />
+    <option name="ALTERNATIVE_JRE_PATH" value="23" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <envs>
+      <env name="ALLOWED_ORIGINS" value="http://localhost:3005,http://localhost:3006,http://localhost:4173" />
+      <env name="AUTH_ISSUER_URI" value="https://serene-nash-ukpflcvyxp.projects.oryapis.com" />
+      <env name="OAUTH_CLIENT_ID" value="dev-terrier" />
+      <env name="OAUTH_CLIENT_SECRET" value="rJCJqYicaVkKkHnsB-rU6BXNFc" />
+      <env name="REDIS_URL" value="redis://localhost:6379" />
+      <env name="SERVICE_URL" value="http://localhost:8086" />
+      <env name="SPRING_PROFILES_ACTIVE" value="dev" />
+    </envs>
+    <module name="terrier-backend.gateway.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.terrier.gateway.GatewayApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

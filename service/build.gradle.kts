@@ -8,22 +8,35 @@ plugins {
 
 dependencies {
     implementation(project(":api"))
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.flywaydb:flyway-core")
-    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 
-    runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+    implementation(Deps.springBootWeb)
+    implementation(Deps.springBootJpa)
+    implementation(Deps.springBootValidation)
+    implementation(Deps.springBootSecurity)
+    implementation(Deps.springBootActuator)
+    implementation(Deps.jacksonKotlin)
+    implementation(Deps.kotlinReflect)
+    implementation(Deps.flywayCore)
+    implementation(Deps.jwtApi)
+    implementation(Deps.springdocOpenApiWebMvc)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.security:spring-security-test")
-    testImplementation("com.h2database:h2")
+    runtimeOnly(Deps.postgresql)
+    runtimeOnly(Deps.jwtImpl)
+    runtimeOnly(Deps.jwtJackson)
+
+    testImplementation(Deps.springBootTest)
+    testImplementation(Deps.h2Database)
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${Versions.springBoot}")
+    }
+}
+
+// Configure JPA to handle Kotlin data classes properly
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
 }

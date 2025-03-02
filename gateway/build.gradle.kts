@@ -6,22 +6,43 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":api"))
-    implementation("org.springframework.cloud:spring-cloud-starter-gateway:4.0.7")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-    implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0")
+    implementation(Deps.springBootWebflux)
+    implementation(Deps.springCloudGateway)
+    implementation(Deps.springBootSecurity)
+    implementation(Deps.springBootOauth2Client)
+    implementation(Deps.springBootActuator)
 
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+    implementation(Deps.springBootDataRedis)
+    implementation(Deps.springSessionRedis)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    runtimeOnly(Deps.jwtImpl)
+    runtimeOnly(Deps.jwtJackson)
+
+    testImplementation(Deps.springBootTest)
 }
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${Versions.springCloud}")
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${Versions.springBoot}")
+    }
+}
+
+
+tasks.register("findMvcDependency") {
+    doLast {
+        println("Checking for MVC dependencies in the project...")
+
+        val webMvcDependencyExists = configurations.runtimeClasspath.get().resolvedConfiguration.resolvedArtifacts.any {
+            it.moduleVersion.id.group == "org.springframework" && it.moduleVersion.id.name == "spring-webmvc" ||
+                    it.moduleVersion.id.group == "org.springframework.boot" && it.moduleVersion.id.name == "spring-boot-starter-web"
+        }
+
+        println("WebMVC found: $webMvcDependencyExists")
+
+        println("\nAll Dependencies:")
+        configurations.runtimeClasspath.get().resolvedConfiguration.resolvedArtifacts.forEach {
+            println("${it.moduleVersion.id.group}:${it.moduleVersion.id.name}:${it.moduleVersion.id.version}")
+        }
     }
 }
