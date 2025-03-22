@@ -34,6 +34,7 @@ openApiGenerate {
     outputDir.set("$buildDir/generated")
     apiPackage.set("com.terrier.api")
     modelPackage.set("com.terrier.model")
+    modelNameSuffix.set("Model")
     configOptions.set(mapOf(
         "dateLibrary" to "java8",
         "interfaceOnly" to "true",

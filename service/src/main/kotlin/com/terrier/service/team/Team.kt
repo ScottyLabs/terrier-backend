@@ -12,9 +12,10 @@ class Team (
     @Id
     val id : UUID = UUID.randomUUID(),
     var name : String,
-    val hackerIds : List<UUID>,
+
     @CreationTimestamp
     val createdAt : Instant,
+
     @UpdateTimestamp
     var updatedAt : Instant,
 )

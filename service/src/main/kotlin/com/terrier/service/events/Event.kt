@@ -1,19 +1,24 @@
 package com.terrier.service.events
 
 import jakarta.persistence.Entity
-import java.time.LocalDateTime
+import jakarta.persistence.Id
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
+import java.time.Instant
 import java.util.UUID
 
 @Entity
-class Event {
-    var id: UUID? = null
-    var name: String? = null
-    var startDate: LocalDateTime? = null
-    var endDate: LocalDateTime? = null
-    var description: String? = null
-    var location: String? = null
-    var sponsorOrgIds: List<UUID>? = null
-    var hackerIds: List<UUID>? = null
-    var createdAt: LocalDateTime? = null
-    var updatedAt: LocalDateTime? = null
-}
+class Event (
+    @Id
+    val id: UUID = UUID.randomUUID(),
+
+    var name: String,
+
+    @CreationTimestamp
+    var startDate: Instant,
+
+    @UpdateTimestamp
+    var endDate: Instant,
+
+    var description: String,
+)
