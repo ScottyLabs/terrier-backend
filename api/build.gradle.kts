@@ -29,7 +29,7 @@ dependencies {
 
 // OpenAPI Generator configuration
 openApiGenerate {
-    generatorName.set("spring")
+    generatorName.set("kotlin-spring")
     inputSpec.set("$projectDir/src/main/resources/openapi.yaml")
     outputDir.set("$buildDir/generated")
     apiPackage.set("com.terrier.api")
@@ -48,8 +48,8 @@ openApiGenerate {
 
 sourceSets {
     main {
-        java {
-            srcDir("$buildDir/generated/src/main/java")
+        kotlin {
+            srcDir("$buildDir/generated/src/main/kotlin")
         }
     }
 }
