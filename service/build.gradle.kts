@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("plugin.jpa")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 dependencies {
@@ -19,6 +20,9 @@ dependencies {
     implementation(Deps.flywayCore)
     implementation(Deps.jwtApi)
     implementation(Deps.springdocOpenApiWebMvc)
+
+    implementation(Deps.mapstruct)
+    kapt(Deps.mapstructProcessor)
 
     runtimeOnly(Deps.postgresql)
     runtimeOnly(Deps.jwtImpl)

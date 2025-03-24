@@ -10,6 +10,8 @@ object Versions {
     const val jacksonDatabindNullable = "0.2.6"
     const val springdocOpenApi = "2.2.0"
     const val jwt = "0.11.5"
+
+    const val mapstruct = "1.5.3.Final"
 }
 
 object Deps {
@@ -29,6 +31,10 @@ object Deps {
     const val springBootOauth2Client = "org.springframework.boot:spring-boot-starter-oauth2-client"
     const val springBootDataRedis = "org.springframework.boot:spring-boot-starter-data-redis"
     const val springSessionRedis = "org.springframework.session:spring-session-data-redis"
+
+    // Mapper
+    const val mapstruct = "org.mapstruct:mapstruct:${Versions.mapstruct}"
+    const val mapstructProcessor = "org.mapstruct:mapstruct-processor:${Versions.mapstruct}"
 
     // Spring Cloud
     const val springCloudGateway = "org.springframework.cloud:spring-cloud-starter-gateway"
