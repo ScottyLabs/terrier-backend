@@ -849,7 +849,7 @@ paths:
         '204':
           description: Sponsor deleted successfully
 
-  /sponsororgs:
+  /sponsor-orgs:
     get:
       summary: Get all sponsor organizations
       tags:
@@ -881,7 +881,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SponsorOrg'
 
-  /sponsororgs/{sponsorOrgId}:
+  /sponsor-orgs/{sponsorOrgId}:
     get:
       summary: Get a sponsor organization by ID
       tags:
@@ -1029,7 +1029,7 @@ paths:
         '204':
           description: Event deleted successfully
 
-  /checkins:
+  /check-ins:
     get:
       summary: Get all check-ins
       tags:
@@ -1061,7 +1061,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CheckIn'
 
-  /checkins/{checkInId}:
+  /check-ins/{checkInId}:
     get:
       summary: Get a check-in by ID
       tags:
@@ -1119,7 +1119,7 @@ paths:
         '204':
           description: Check-in deleted successfully
 
-  /judgeassignments:
+  /judge-assignments:
     get:
       summary: Get all judge assignments
       tags:
@@ -1151,7 +1151,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/JudgeAssignment'
 
-  /judgeassignments/{judgeAssignmentId}:
+  /judge-assignments/{judgeAssignmentId}:
     get:
       summary: Get a judge assignment by ID
       tags:
@@ -1246,12 +1246,12 @@ components:
           description: Unique identifier for the project
         name:
           type: string
+        team:
+          $ref: '#/components/schemas/Team'
         description:
           type: string
-        teamId:
+        url:
           type: string
-          format: uuid
-          description: ID of the team this project belongs to
         createdAt:
           type: string
           format: date-time
@@ -1261,7 +1261,7 @@ components:
       required:
         - id
         - name
-        - teamId
+        - team
 
     Team:
       type: object
@@ -1272,16 +1272,6 @@ components:
           description: Unique identifier for the team
         name:
           type: string
-        projectId:
-          type: string
-          format: uuid
-          description: ID of the team's project
-        hackerIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of hackers in this team
         createdAt:
           type: string
           format: date-time
@@ -1299,30 +1289,10 @@ components:
           type: string
           format: uuid
           description: Unique identifier for the hacker
-        userId:
-          type: string
-          format: uuid
-          description: ID of the user associated with this hacker
-        teamId:
-          type: string
-          format: uuid
-          description: ID of the team this hacker belongs to
-        sponsorIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of sponsors associated with this hacker
-        eventIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of events this hacker attends
-        skills:
-          type: array
-          items:
-            type: string
+        user:
+          $ref: '#/components/schemas/User'
+        team:
+          $ref: '#/components/schemas/Team'
         createdAt:
           type: string
           format: date-time
@@ -1331,8 +1301,8 @@ components:
           format: date-time
       required:
         - id
-        - userId
-        - teamId
+        - user
+        - team
 
     Judge:
       type: object
@@ -1341,26 +1311,8 @@ components:
           type: string
           format: uuid
           description: Unique identifier for the judge
-        userId:
-          type: string
-          format: uuid
-          description: ID of the user associated with this judge
-        assignmentIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of judge assignments for this judge
-        submissionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of submissions judged by this judge
-        expertise:
-          type: array
-          items:
-            type: string
+        user:
+            $ref: '#/components/schemas/User'
         createdAt:
           type: string
           format: date-time
@@ -1369,7 +1321,7 @@ components:
           format: date-time
       required:
         - id
-        - userId
+        - user
 
     Submission:
       type: object
@@ -1378,27 +1330,13 @@ components:
           type: string
           format: uuid
           description: Unique identifier for the submission
-        projectId:
-          type: string
-          format: uuid
-          description: ID of the project for this submission
-        evaluationId:
-          type: string
-          format: uuid
-          description: ID of the evaluation for this submission
-        url:
-          type: string
-          format: uri
-          description: URL to the project submission
+        project:
+          $ref: '#/components/schemas/Project'
+        track:
+          $ref: '#/components/schemas/Track'
         submittedAt:
           type: string
           format: date-time
-        judgeIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of judges assigned to evaluate this submission
         createdAt:
           type: string
           format: date-time
@@ -1407,7 +1345,7 @@ components:
           format: date-time
       required:
         - id
-        - projectId
+        - project
         - submittedAt
 
     Evaluation:
@@ -1417,20 +1355,10 @@ components:
           type: string
           format: uuid
           description: Unique identifier for the evaluation
-        submissionId:
-          type: string
-          format: uuid
-          description: ID of the submission being evaluated
-        score:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-        feedback:
-          type: string
-        completedAt:
-          type: string
-          format: date-time
+        judge:
+          $ref: '#/components/schemas/Judge'
+        submission:
+          $ref: '#/components/schemas/Submission'
         createdAt:
           type: string
           format: date-time
@@ -1451,21 +1379,8 @@ components:
         name:
           type: string
           description: Name of the track
-        result:
-          type: string
-          description: Result/outcome of the track
-        sponsorOrgIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of sponsor organizations for this track
-        assignmentIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of judge assignments for this track
+        sponsor:
+          $ref: '#/components/schemas/Sponsor'
         description:
           type: string
         createdAt:
@@ -1485,23 +1400,10 @@ components:
           type: string
           format: uuid
           description: Unique identifier for the sponsor
-        userId:
-          type: string
-          format: uuid
-          description: ID of the user associated with this sponsor
-        sponsorOrgId:
-          type: string
-          format: uuid
-          description: ID of the sponsor organization this sponsor belongs to
-        hackerIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of hackers sponsored by this sponsor
-        role:
-          type: string
-          description: Role of the sponsor
+        user:
+          $ref: '#/components/schemas/User'
+        sponsorOrg:
+          $ref: '#/components/schemas/SponsorOrg'
         createdAt:
           type: string
           format: date-time
@@ -1510,8 +1412,8 @@ components:
           format: date-time
       required:
         - id
-        - userId
-        - sponsorOrgId
+        - user
+        - sponsorOrg
 
     SponsorOrg:
       type: object
@@ -1522,24 +1424,6 @@ components:
           description: Unique identifier for the sponsor organization
         name:
           type: string
-        sponsorIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of sponsors from this organization
-        trackIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of tracks sponsored by this organization
-        eventIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of events hosted by this organization
         createdAt:
           type: string
           format: date-time
@@ -1569,18 +1453,6 @@ components:
           format: date-time
         location:
           type: string
-        sponsorOrgIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of sponsor organizations hosting this event
-        hackerIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of hackers attending this event
         createdAt:
           type: string
           format: date-time
@@ -1590,8 +1462,10 @@ components:
       required:
         - id
         - name
+        - description
         - startDate
         - endDate
+        - location
 
     CheckIn:
       type: object
@@ -1600,20 +1474,13 @@ components:
           type: string
           format: uuid
           description: Unique identifier for the check-in
-        hackerId:
-          type: string
-          format: uuid
-          description: ID of the hacker checking in
-        eventId:
-          type: string
-          format: uuid
-          description: ID of the event for the check-in
+        hacker:
+          $ref: '#/components/schemas/Hacker'
+        event:
+          $ref: '#/components/schemas/Event'
         timestamp:
           type: string
           format: date-time
-        status:
-          type: string
-          enum: [pending, approved, rejected]
         createdAt:
           type: string
           format: date-time
@@ -1622,7 +1489,7 @@ components:
           format: date-time
       required:
         - id
-        - hackerId
+        - hacker
         - timestamp
 
     JudgeAssignment:
@@ -1632,22 +1499,10 @@ components:
           type: string
           format: uuid
           description: Unique identifier for the judge assignment
-        judgeIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: IDs of judges assigned
-        trackId:
-          type: string
-          format: uuid
-          description: ID of the track for this assignment
-        assignedAt:
-          type: string
-          format: date-time
-        status:
-          type: string
-          enum: [pending, accepted, completed]
+        judge:
+          $ref: '#/components/schemas/Judge'
+        track:
+          $ref: '#/components/schemas/Track'
         createdAt:
           type: string
           format: date-time
@@ -1656,9 +1511,8 @@ components:
           format: date-time
       required:
         - id
-        - judgeIds
-        - trackId
-        - assignedAt
+        - judge
+        - track
 
   securitySchemes:
     BearerAuth:
