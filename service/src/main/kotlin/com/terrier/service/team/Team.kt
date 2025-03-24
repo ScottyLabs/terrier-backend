@@ -11,6 +11,7 @@ import java.util.UUID
 class Team (
     @Id
     val id : UUID = UUID.randomUUID(),
+
     var name : String,
 
     @CreationTimestamp
