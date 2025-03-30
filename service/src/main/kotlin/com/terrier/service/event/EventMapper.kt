@@ -1,4 +1,4 @@
-package com.terrier.service.events
+package com.terrier.service.event
 
 import com.terrier.model.EventModel
 import org.mapstruct.Mapper

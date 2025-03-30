@@ -1,4 +1,4 @@
-package com.terrier.service.events
+package com.terrier.service.event
 
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID

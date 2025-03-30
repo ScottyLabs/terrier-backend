@@ -13,6 +13,8 @@ servers:
 tags:
   - name: Users
     description: User management operations
+  - name: Hackathons
+    description: Hackathon management operations
   - name: Projects
     description: Project management operations
   - name: Teams
@@ -128,6 +130,55 @@ paths:
       responses:
         '204':
           description: User deleted successfully
+
+  /hackathons:
+    get:
+      summary: Get all hackathons
+      tags:
+        - Hackathons
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hackathon'
+    post:
+      summary: Create a new hackathon
+      tags:
+          - Hackathons
+      requestBody:
+          required: true
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Hackathon'
+      responses:
+          '201':
+            description: Hackathon created successfully
+            content:
+                application/json:
+                  schema:
+                      $ref: '#/components/schemas/Hackathon'
+    put:
+      summary: Update a hackathon
+      tags:
+        - Hackathons
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hackathon'
+      responses:
+        '200':
+          description: Hackathon updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hackathon'
 
   /projects:
     get:
@@ -1237,6 +1288,37 @@ components:
         - idp
         - email
 
+    Hackathon:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the hackathon
+        name:
+          type: string
+        website:
+          type: string
+        year:
+          type: integer
+          description: Year of the hackathon
+        type:
+          type: string
+          description: Type of hackathon
+          enum:
+            - virtual
+            - in-person
+            - hybrid
+        location:
+          type: string
+          format: address
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
     Project:
       type: object
       properties:
@@ -1293,6 +1375,8 @@ components:
           $ref: '#/components/schemas/User'
         team:
           $ref: '#/components/schemas/Team'
+        hackathon:
+          $ref: '#/components/schemas/Hackathon'
         createdAt:
           type: string
           format: date-time

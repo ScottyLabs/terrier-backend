@@ -1,9 +1,9 @@
-package com.terrier.service.team
+package com.terrier.service.submission
 
-import com.terrier.service.hackathon.Hackathon
+import com.terrier.service.project.Project
+import com.terrier.service.track.Track
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
@@ -11,19 +11,21 @@ import java.time.Instant
 import java.util.UUID
 
 @Entity
-class Team (
+class Submission (
     @Id
-    val id : UUID = UUID.randomUUID(),
-
-    var name : String,
+    val id: UUID = UUID.randomUUID(),
 
     @ManyToOne
-    @JoinColumn(name = "hackathon_id")
-    val hackathon : Hackathon,
+    val project: Project,
+
+    @ManyToOne
+    val track: Track,
+
+    val submittedAt: Instant,
 
     @CreationTimestamp
-    val createdAt : Instant,
+    val createdAt: Instant,
 
     @UpdateTimestamp
-    var updatedAt : Instant,
+    val updatedAt: Instant,
 )

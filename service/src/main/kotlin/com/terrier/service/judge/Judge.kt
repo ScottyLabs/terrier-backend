@@ -1,35 +1,21 @@
-package com.terrier.service.hacker
+package com.terrier.service.judge
 
-import com.terrier.service.hackathon.Hackathon
-import com.terrier.service.team.Team
 import com.terrier.service.user.User
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToOne
-import jakarta.persistence.Version
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.Instant
 import java.util.UUID
 
 @Entity
-class Hacker (
+class Judge (
     @Id
     val id: UUID = UUID.randomUUID(),
 
     @OneToOne
-    @JoinColumn(name = "user_id")
-    val user : User,
-
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    val team : Team,
-
-    @ManyToOne
-    @JoinColumn(name = "hackathon_id")
-    val hackathon : Hackathon,
+    val user: User,
 
     @CreationTimestamp
     val createdAt: Instant,

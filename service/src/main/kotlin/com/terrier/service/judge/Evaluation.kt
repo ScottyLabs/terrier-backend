@@ -1,6 +1,6 @@
-package com.terrier.service.team
+package com.terrier.service.judge
 
-import com.terrier.service.hackathon.Hackathon
+import com.terrier.service.submission.Submission
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
@@ -11,19 +11,21 @@ import java.time.Instant
 import java.util.UUID
 
 @Entity
-class Team (
+class Evaluation (
     @Id
-    val id : UUID = UUID.randomUUID(),
-
-    var name : String,
+    val id: UUID = UUID.randomUUID(),
 
     @ManyToOne
-    @JoinColumn(name = "hackathon_id")
-    val hackathon : Hackathon,
+    @JoinColumn(name = "judge_id")
+    val judge: Judge,
+
+    @ManyToOne
+    @JoinColumn(name = "submission_id")
+    val submission: Submission,
 
     @CreationTimestamp
-    val createdAt : Instant,
+    val createdAt: Instant,
 
     @UpdateTimestamp
-    var updatedAt : Instant,
+    val updatedAt: Instant
 )
