@@ -21,6 +21,8 @@ tags:
     description: Team management operations
   - name: Hackers
     description: Hacker management operations
+  - name: Applications
+    description: Application management operations
   - name: Judges
     description: Judge management operations
   - name: Submissions
@@ -180,11 +182,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Hackathon'
 
-  /projects:
+  /hackathons/{hackathonId}/projects:
     get:
       summary: Get all projects
       tags:
         - Projects
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -198,6 +207,13 @@ paths:
       summary: Create a new project
       tags:
         - Projects
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -212,12 +228,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Project'
 
-  /projects/{projectId}:
+  /hackathons/{hackathonId}/projects/{projectId}:
     get:
       summary: Get a project by ID
       tags:
         - Projects
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: projectId
           in: path
           required: true
@@ -236,6 +258,12 @@ paths:
       tags:
         - Projects
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: projectId
           in: path
           required: true
@@ -260,6 +288,12 @@ paths:
       tags:
         - Projects
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: projectId
           in: path
           required: true
@@ -270,11 +304,18 @@ paths:
         '204':
           description: Project deleted successfully
 
-  /teams:
+  /hackathons/{hackathonId}/teams:
     get:
       summary: Get all teams
       tags:
         - Teams
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -288,6 +329,13 @@ paths:
       summary: Create a new team
       tags:
         - Teams
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -302,12 +350,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Team'
 
-  /teams/{teamId}:
+  /hackathons/{hackathonId}/teams/{teamId}:
     get:
       summary: Get a team by ID
       tags:
         - Teams
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: teamId
           in: path
           required: true
@@ -326,6 +380,12 @@ paths:
       tags:
         - Teams
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: teamId
           in: path
           required: true
@@ -350,6 +410,12 @@ paths:
       tags:
         - Teams
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: teamId
           in: path
           required: true
@@ -360,11 +426,18 @@ paths:
         '204':
           description: Team deleted successfully
 
-  /hackers:
+  /hackathons/{hackathonId}/hackers:
     get:
       summary: Get all hackers
       tags:
         - Hackers
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -378,6 +451,13 @@ paths:
       summary: Create a new hacker
       tags:
         - Hackers
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -392,12 +472,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Hacker'
 
-  /hackers/{hackerId}:
+  /hackathons/{hackathonId}/hackers/{hackerId}:
     get:
       summary: Get a hacker by ID
       tags:
         - Hackers
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: hackerId
           in: path
           required: true
@@ -416,6 +502,12 @@ paths:
       tags:
         - Hackers
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: hackerId
           in: path
           required: true
@@ -440,6 +532,12 @@ paths:
       tags:
         - Hackers
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: hackerId
           in: path
           required: true
@@ -450,11 +548,152 @@ paths:
         '204':
           description: Hacker deleted successfully
 
-  /judges:
+  /hackathons/{hackathonId}/hackers/{hackerId}/application:
+    get:
+      summary: Get current application
+      tags:
+        - Applications
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: hackerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+    put:
+        summary: Update current application
+        tags:
+            - Applications
+        parameters:
+          - name: hackathonId
+            in: path
+            required: true
+            schema:
+              type: string
+              format: uuid
+          - name: hackerId
+            in: path
+            required: true
+            schema:
+                type: string
+                format: uuid
+        requestBody:
+            required: true
+            content:
+              application/json:
+                  schema:
+                    $ref: '#/components/schemas/Application'
+        responses:
+            '200':
+              description: Application updated successfully
+              content:
+                  application/json:
+                    schema:
+                        $ref: '#/components/schemas/Application'
+
+  /hackathons/{hackathonId}/hackers/{hackerId}/application/save:
+    post:
+      summary: Save current application
+      tags:
+        - Applications
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: hackerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Application saved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+
+  /hackathons/{hackathonId}/{hackerId}/application/submit:
+    post:
+      summary: Submit current application
+      tags:
+        - Applications
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: hackerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Application submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+
+  /hackathons/{hackathonId}/hackers/{hackerId}/application/accept:
+    post:
+      summary: Accept current application
+      tags:
+        - Applications
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: hackerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Application accepted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+
+  /hackathons/{hackathonId}/judges:
     get:
       summary: Get all judges
       tags:
         - Judges
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -468,6 +707,13 @@ paths:
       summary: Create a new judge
       tags:
         - Judges
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -482,12 +728,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Judge'
 
-  /judges/{judgeId}:
+  /hackathons/{hackathonId}/judges/{judgeId}:
     get:
       summary: Get a judge by ID
       tags:
         - Judges
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: judgeId
           in: path
           required: true
@@ -506,6 +758,12 @@ paths:
       tags:
         - Judges
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: judgeId
           in: path
           required: true
@@ -530,6 +788,12 @@ paths:
       tags:
         - Judges
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: judgeId
           in: path
           required: true
@@ -540,11 +804,18 @@ paths:
         '204':
           description: Judge deleted successfully
 
-  /submissions:
+  /hackathons/{hackathonId}/submissions:
     get:
       summary: Get all submissions
       tags:
         - Submissions
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -558,6 +829,13 @@ paths:
       summary: Create a new submission
       tags:
         - Submissions
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -572,12 +850,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Submission'
 
-  /submissions/{submissionId}:
+  /hackathons/{hackathonId}/submissions/{submissionId}:
     get:
       summary: Get a submission by ID
       tags:
         - Submissions
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: submissionId
           in: path
           required: true
@@ -596,6 +880,12 @@ paths:
       tags:
         - Submissions
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: submissionId
           in: path
           required: true
@@ -620,6 +910,12 @@ paths:
       tags:
         - Submissions
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: submissionId
           in: path
           required: true
@@ -630,11 +926,18 @@ paths:
         '204':
           description: Submission deleted successfully
 
-  /evaluations:
+  /hackathons/{hackathonId}/evaluations:
     get:
       summary: Get all evaluations
       tags:
         - Evaluations
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -648,6 +951,13 @@ paths:
       summary: Create a new evaluation
       tags:
         - Evaluations
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -662,12 +972,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Evaluation'
 
-  /evaluations/{evaluationId}:
+  /hackathons/{hackathonId}/evaluations/{evaluationId}:
     get:
       summary: Get an evaluation by ID
       tags:
         - Evaluations
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: evaluationId
           in: path
           required: true
@@ -686,6 +1002,12 @@ paths:
       tags:
         - Evaluations
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: evaluationId
           in: path
           required: true
@@ -710,6 +1032,12 @@ paths:
       tags:
         - Evaluations
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: evaluationId
           in: path
           required: true
@@ -720,11 +1048,18 @@ paths:
         '204':
           description: Evaluation deleted successfully
 
-  /tracks:
+  /hackathons/{hackathonId}/tracks:
     get:
       summary: Get all tracks
       tags:
         - Tracks
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -738,6 +1073,13 @@ paths:
       summary: Create a new track
       tags:
         - Tracks
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -752,12 +1094,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Track'
 
-  /tracks/{trackId}:
+  /hackathons/{hackathonId}/tracks/{trackId}:
     get:
       summary: Get a track by ID
       tags:
         - Tracks
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: trackId
           in: path
           required: true
@@ -776,6 +1124,12 @@ paths:
       tags:
         - Tracks
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: trackId
           in: path
           required: true
@@ -800,6 +1154,12 @@ paths:
       tags:
         - Tracks
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: trackId
           in: path
           required: true
@@ -810,11 +1170,18 @@ paths:
         '204':
           description: Track deleted successfully
 
-  /sponsors:
+  /hackathons/{hackathonId}/sponsors:
     get:
       summary: Get all sponsors
       tags:
         - Sponsors
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -828,6 +1195,13 @@ paths:
       summary: Create a new sponsor
       tags:
         - Sponsors
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -842,12 +1216,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Sponsor'
 
-  /sponsors/{sponsorId}:
+  /hackathons/{hackathonId}/sponsors/{sponsorId}:
     get:
       summary: Get a sponsor by ID
       tags:
         - Sponsors
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: sponsorId
           in: path
           required: true
@@ -866,6 +1246,12 @@ paths:
       tags:
         - Sponsors
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: sponsorId
           in: path
           required: true
@@ -890,6 +1276,12 @@ paths:
       tags:
         - Sponsors
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: sponsorId
           in: path
           required: true
@@ -900,11 +1292,18 @@ paths:
         '204':
           description: Sponsor deleted successfully
 
-  /sponsor-orgs:
+  /hackathons/{hackathonId}/sponsor-orgs:
     get:
       summary: Get all sponsor organizations
       tags:
         - SponsorOrgs
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -918,6 +1317,13 @@ paths:
       summary: Create a new sponsor organization
       tags:
         - SponsorOrgs
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -932,12 +1338,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/SponsorOrg'
 
-  /sponsor-orgs/{sponsorOrgId}:
+  /hackathons/{hackathonId}/sponsor-orgs/{sponsorOrgId}:
     get:
       summary: Get a sponsor organization by ID
       tags:
         - SponsorOrgs
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: sponsorOrgId
           in: path
           required: true
@@ -956,6 +1368,12 @@ paths:
       tags:
         - SponsorOrgs
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: sponsorOrgId
           in: path
           required: true
@@ -980,6 +1398,12 @@ paths:
       tags:
         - SponsorOrgs
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: sponsorOrgId
           in: path
           required: true
@@ -990,11 +1414,18 @@ paths:
         '204':
           description: Sponsor organization deleted successfully
 
-  /events:
+  /hackathons/{hackathonId}/events:
     get:
       summary: Get all events
       tags:
         - Events
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -1008,6 +1439,13 @@ paths:
       summary: Create a new event
       tags:
         - Events
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -1022,12 +1460,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Event'
 
-  /events/{eventId}:
+  /hackathons/{hackathonId}/events/{eventId}:
     get:
       summary: Get an event by ID
       tags:
         - Events
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: eventId
           in: path
           required: true
@@ -1046,6 +1490,12 @@ paths:
       tags:
         - Events
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: eventId
           in: path
           required: true
@@ -1070,6 +1520,12 @@ paths:
       tags:
         - Events
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: eventId
           in: path
           required: true
@@ -1080,11 +1536,18 @@ paths:
         '204':
           description: Event deleted successfully
 
-  /check-ins:
+  /hackathons/{hackathonId}/check-ins:
     get:
       summary: Get all check-ins
       tags:
         - CheckIns
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -1098,6 +1561,13 @@ paths:
       summary: Create a new check-in
       tags:
         - CheckIns
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -1112,12 +1582,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/CheckIn'
 
-  /check-ins/{checkInId}:
+  /hackathons/{hackathonId}/check-ins/{checkInId}:
     get:
       summary: Get a check-in by ID
       tags:
         - CheckIns
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: checkInId
           in: path
           required: true
@@ -1136,6 +1612,12 @@ paths:
       tags:
         - CheckIns
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: checkInId
           in: path
           required: true
@@ -1160,6 +1642,12 @@ paths:
       tags:
         - CheckIns
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: checkInId
           in: path
           required: true
@@ -1170,11 +1658,18 @@ paths:
         '204':
           description: Check-in deleted successfully
 
-  /judge-assignments:
+  /hackathons/{hackathonId}/judge-assignments:
     get:
       summary: Get all judge assignments
       tags:
         - JudgeAssignments
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful operation
@@ -1188,6 +1683,13 @@ paths:
       summary: Create a new judge assignment
       tags:
         - JudgeAssignments
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -1202,12 +1704,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/JudgeAssignment'
 
-  /judge-assignments/{judgeAssignmentId}:
+  /hackathons/{hackathonId}/judge-assignments/{judgeAssignmentId}:
     get:
       summary: Get a judge assignment by ID
       tags:
         - JudgeAssignments
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: judgeAssignmentId
           in: path
           required: true
@@ -1226,6 +1734,12 @@ paths:
       tags:
         - JudgeAssignments
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: judgeAssignmentId
           in: path
           required: true
@@ -1250,6 +1764,12 @@ paths:
       tags:
         - JudgeAssignments
       parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: judgeAssignmentId
           in: path
           required: true
@@ -1387,6 +1907,35 @@ components:
         - id
         - user
         - team
+
+    Application:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+            description: Unique identifier for the application
+          hacker:
+            $ref: '#/components/schemas/Hacker'
+          project:
+            $ref: '#/components/schemas/Project'
+          status:
+            type: string
+            description: Status of the application
+            enum:
+              - pending
+              - submitted
+              - accepted
+              - rejected
+          createdAt:
+            type: string
+            format: date-time
+          updatedAt:
+            type: string
+            format: date-time
+        required:
+            - id
+            - hacker
 
     Judge:
       type: object
