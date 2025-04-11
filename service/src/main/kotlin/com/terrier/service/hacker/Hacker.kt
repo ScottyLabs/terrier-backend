@@ -1,5 +1,6 @@
 package com.terrier.service.hacker
 
+import com.terrier.service.attendee.Attendee
 import com.terrier.service.hackathon.Hackathon
 import com.terrier.service.team.Team
 import com.terrier.service.user.User
@@ -20,8 +21,8 @@ class Hacker (
     val id: UUID = UUID.randomUUID(),
 
     @OneToOne
-    @JoinColumn(name = "user_id")
-    val user : User,
+    @JoinColumn(name = "attendee_id")
+    val attendee : Attendee,
 
     @ManyToOne
     @JoinColumn(name = "team_id")
