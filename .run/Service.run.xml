@@ -1,5 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="dev" />
+    <envs>
+      <env name="DATABASE_PASSWORD" value="terrier" />
+      <env name="DATABASE_URL" value="jdbc:postgresql://localhost:5432/terrier" />
+      <env name="DATABASE_USERNAME" value="terrier" />
+    </envs>
     <module name="terrier-backend.service.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.terrier.service.ServiceApplication" />
     <method v="2">

@@ -8,7 +8,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":api"))
+    implementation(project(":terrier-api"))
 
     implementation(Deps.springBootWeb)
     implementation(Deps.springBootJpa)
