@@ -17,7 +17,11 @@ dependencies {
     implementation(Deps.springBootActuator)
     implementation(Deps.jacksonKotlin)
     implementation(Deps.kotlinReflect)
+
     implementation(Deps.flywayCore)
+    implementation(Deps.flywayPostgresql)
+    implementation(Deps.hibernate)
+
     implementation(Deps.jwtApi)
     implementation(Deps.springdocOpenApiWebMvc)
 
@@ -29,7 +33,6 @@ dependencies {
     runtimeOnly(Deps.jwtJackson)
 
     testImplementation(Deps.springBootTest)
-    testImplementation(Deps.h2Database)
 }
 
 dependencyManagement {

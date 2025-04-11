@@ -4,17 +4,17 @@ name: terrier
 
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     container_name: terrier-postgres
     ports:
       - "127.0.0.1:5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: terrier
+      POSTGRES_PASSWORD: terrier
       POSTGRES_DB: terrier
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init-scripts:/docker-entrypoint-initdb.d
+      - ./postgres/scripts/:/docker-entrypoint-initdb.d
     restart: unless-stopped
 
   redis:

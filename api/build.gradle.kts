@@ -45,6 +45,13 @@ openApiGenerate {
         "useSpringBoot3" to "true",
         "delegatePattern" to "true"
     ))
+    typeMappings.set(mapOf(
+        "DateTime" to "Instant",
+        "OffsetDateTime" to "Instant",
+    ))
+    importMappings.set(mapOf(
+        "Instant" to "java.time.Instant",
+    ))
 }
 
 sourceSets {

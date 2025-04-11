@@ -12,6 +12,8 @@ object Versions {
     const val jwt = "0.11.5"
 
     const val mapstruct = "1.5.3.Final"
+
+    const val hibernate = "6.6.13.Final"
 }
 
 object Deps {
@@ -50,8 +52,9 @@ object Deps {
 
     // Database
     const val postgresql = "org.postgresql:postgresql"
-    const val h2Database = "com.h2database:h2"
+    const val hibernate = "org.hibernate:hibernate-envers:${Versions.hibernate}"
     const val flywayCore = "org.flywaydb:flyway-core"
+    const val flywayPostgresql = "org.flywaydb:flyway-database-postgresql"
 
     // JWT
     const val jwtApi = "io.jsonwebtoken:jjwt-api:${Versions.jwt}"
