@@ -17,6 +17,8 @@ tags:
     description: Hackathon management operations
   - name: Attendees
     description: Attendee management operations
+  - name: Organizers
+    description: Organizer management operations
   - name: Hackers
     description: Hacker management operations
   - name: Teams
@@ -307,6 +309,52 @@ paths:
       responses:
         '204':
           description: Attendee deleted successfully
+
+  /hackathons/{hackathonId}/organizers:
+    get:
+      summary: Get all organizers for a hackathon
+      tags:
+        - Organizers
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organizer'
+    post:
+      summary: Create a new organizer for a hackathon
+      tags:
+        - Organizers
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organizer'
+      responses:
+        '201':
+          description: Organizer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organizer'
 
   /hackathons/{hackathonId}/teams:
     get:
@@ -2062,6 +2110,28 @@ components:
           type: string
           format: date-time
 
+    Organizer:
+        type: object
+        properties:
+            id:
+              type: string
+              format: uuid
+              description: Unique identifier for the organizer
+            attendee:
+              $ref: '#/components/schemas/User'
+            hackathon:
+              $ref: '#/components/schemas/Hackathon'
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+        required:
+            - id
+            - attendee
+            - hackathon
+
     ResourceCreateRequest:
       type: object
       properties:
@@ -2098,7 +2168,7 @@ components:
         title:
           type: string
         sender:
-          $ref: '#/components/schemas/User'
+          $ref: '#/components/schemas/Organizer'
         content:
           type: string
         recipients:
