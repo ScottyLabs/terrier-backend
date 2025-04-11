@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Hackathon Management System API
+  title: Terrier - Hackathon Management System API
   description: API for managing hackathon events, teams, projects, judging, and sponsorships
-  version: 1.0.0
+  version: 0.0.1
 
 servers:
   - url: https://api.hackathon-system.com/v1
@@ -15,14 +15,16 @@ tags:
     description: User management operations
   - name: Hackathons
     description: Hackathon management operations
-  - name: Projects
-    description: Project management operations
-  - name: Teams
-    description: Team management operations
   - name: Attendees
     description: Attendee management operations
   - name: Hackers
     description: Hacker management operations
+  - name: Teams
+    description: Team management operations
+  - name: Projects
+    description: Project management operations
+  - name: Resources
+    description: Resource management operations
   - name: Applications
     description: Application management operations
   - name: Judges
@@ -184,11 +186,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Hackathon'
 
-  /hackathons/{hackathonId}/projects:
+  /hackathons/{hackathonId}/attendees:
     get:
-      summary: Get all projects
+      summary: Get all attendees for a hackathon
       tags:
-        - Projects
+        - Attendees
       parameters:
         - name: hackathonId
           in: path
@@ -204,11 +206,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Project'
+                  $ref: '#/components/schemas/Attendee'
     post:
-      summary: Create a new project
+      summary: Create a new attendee for a hackathon
       tags:
-        - Projects
+        - Attendees
       parameters:
         - name: hackathonId
           in: path
@@ -221,20 +223,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
+              $ref: '#/components/schemas/Attendee'
       responses:
         '201':
-          description: Project created successfully
+          description: Attendee created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
+                $ref: '#/components/schemas/Attendee'
 
-  /hackathons/{hackathonId}/projects/{projectId}:
+  /hackathons/{hackathonId}/attendees/{attendeeId}:
     get:
-      summary: Get a project by ID
+      summary: Get an attendee by ID
       tags:
-        - Projects
+        - Attendees
       parameters:
         - name: hackathonId
           in: path
@@ -242,7 +244,7 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: projectId
+        - name: attendeeId
           in: path
           required: true
           schema:
@@ -254,11 +256,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
+                $ref: '#/components/schemas/Attendee'
     put:
-      summary: Update a project
+      summary: Update an attendee
       tags:
-        - Projects
+        - Attendees
       parameters:
         - name: hackathonId
           in: path
@@ -266,7 +268,7 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: projectId
+        - name: attendeeId
           in: path
           required: true
           schema:
@@ -277,18 +279,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
+              $ref: '#/components/schemas/Attendee'
       responses:
         '200':
-          description: Project updated successfully
+          description: Attendee updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
+                $ref: '#/components/schemas/Attendee'
     delete:
-      summary: Delete a project
+      summary: Delete an attendee
       tags:
-        - Projects
+        - Attendees
       parameters:
         - name: hackathonId
           in: path
@@ -296,7 +298,7 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: projectId
+        - name: attendeeId
           in: path
           required: true
           schema:
@@ -304,7 +306,7 @@ paths:
             format: uuid
       responses:
         '204':
-          description: Project deleted successfully
+          description: Attendee deleted successfully
 
   /hackathons/{hackathonId}/teams:
     get:
@@ -428,11 +430,11 @@ paths:
         '204':
           description: Team deleted successfully
 
-  /hackathons/{hackathonId}/attendees:
+  /hackathons/{hackathonId}/projects:
     get:
-      summary: Get all attendees for a hackathon
+      summary: Get all projects
       tags:
-        - Attendees
+        - Projects
       parameters:
         - name: hackathonId
           in: path
@@ -448,11 +450,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Attendee'
+                  $ref: '#/components/schemas/Project'
     post:
-      summary: Create a new attendee for a hackathon
+      summary: Create a new project
       tags:
-        - Attendees
+        - Projects
       parameters:
         - name: hackathonId
           in: path
@@ -465,20 +467,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Attendee'
+              $ref: '#/components/schemas/Project'
       responses:
         '201':
-          description: Attendee created successfully
+          description: Project created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Attendee'
+                $ref: '#/components/schemas/Project'
 
-  /hackathons/{hackathonId}/attendees/{attendeeId}:
+  /hackathons/{hackathonId}/projects/{projectId}:
     get:
-      summary: Get an attendee by ID
+      summary: Get a project by ID
       tags:
-        - Attendees
+        - Projects
       parameters:
         - name: hackathonId
           in: path
@@ -486,7 +488,7 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: attendeeId
+        - name: projectId
           in: path
           required: true
           schema:
@@ -498,11 +500,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Attendee'
+                $ref: '#/components/schemas/Project'
     put:
-      summary: Update an attendee
+      summary: Update a project
       tags:
-        - Attendees
+        - Projects
       parameters:
         - name: hackathonId
           in: path
@@ -510,7 +512,7 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: attendeeId
+        - name: projectId
           in: path
           required: true
           schema:
@@ -521,18 +523,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Attendee'
+              $ref: '#/components/schemas/Project'
       responses:
         '200':
-          description: Attendee updated successfully
+          description: Project updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Attendee'
+                $ref: '#/components/schemas/Project'
     delete:
-      summary: Delete an attendee
+      summary: Delete a project
       tags:
-        - Attendees
+        - Projects
       parameters:
         - name: hackathonId
           in: path
@@ -540,7 +542,7 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: attendeeId
+        - name: projectId
           in: path
           required: true
           schema:
@@ -548,7 +550,7 @@ paths:
             format: uuid
       responses:
         '204':
-          description: Attendee deleted successfully
+          description: Project deleted successfully
 
   /hackathons/{hackathonId}/hackers:
     get:
@@ -754,7 +756,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Application'
 
-  /hackathons/{hackathonId}/{hackerId}/application/submit:
+  /hackathons/{hackathonId}/hackers/{hackerId}/application/submit:
     post:
       summary: Submit current application
       tags:
@@ -805,6 +807,103 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Application'
+
+  /hackathons/{hackathonId}/hackers/{hackerId}/application/reject:
+    post:
+      summary: Reject current application
+      tags:
+        - Applications
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: hackerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Application rejected successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+
+  /hackathons/{hackathonId}/resources:
+    get:
+      summary: List resources
+      description: Retrieve a list of resources sent, optionally filtered by sender, recipient, or other parameters.
+      tags:
+        - Resources
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+              type: string
+              format: uuid
+        - name: senderId
+          in: query
+          description: Filter by sender Id (organizer)
+          schema:
+            type: string
+            format: uuid
+        - name: recipientId
+          in: query
+          description: Filter by recipient Id (team or attendee)
+          schema:
+            type: string
+            format: uuid
+        - name: recipientType
+          in: query
+          description: Filter by recipient type (team or attendee)
+          schema:
+              type: string
+              enum:
+              - team
+              - attendee
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Resource'
+
+  /hackathons/{hackathonId}/resources/{resourceId}:
+    get:
+        summary: Get a resource by ID
+        tags:
+            - Resources
+        parameters:
+          - name: hackathonId
+            in: path
+            required: true
+            schema:
+              type: string
+              format: uuid
+          - name: resourceId
+            in: path
+            required: true
+            schema:
+              type: string
+              format: uuid
+        responses:
+            '200':
+              description: Successful operation
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Resource'
+            '404':
+              description: Resource not found
 
   /hackathons/{hackathonId}/judges:
     get:
@@ -1960,6 +2059,60 @@ components:
           type: string
           format: date-time
         updatedAt:
+          type: string
+          format: date-time
+
+    ResourceCreateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        recipients:
+          type: array
+          description: List of recipients (attendees or teams)
+          items:
+            type: object
+            properties:
+              recipientId:
+                type: string
+                format: uuid
+              recipientType:
+                type: string
+                enum: [team, attendee]
+            required:
+              - recipientId
+              - recipientType
+      required:
+        - title
+        - content
+        - recipients
+
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        sender:
+          $ref: '#/components/schemas/User'
+        content:
+          type: string
+        recipients:
+          type: array
+          items:
+            type: object
+            properties:
+              recipientId:
+                type: string
+                format: uuid
+              recipientType:
+                type: string
+                enum: [team, attendee]
+        createdAt:
           type: string
           format: date-time
 
